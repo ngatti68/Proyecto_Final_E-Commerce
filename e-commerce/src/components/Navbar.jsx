@@ -1,10 +1,13 @@
 import { NavLink } from "react-router-dom";
 import { useCartContext } from "../context/CartContext";
+import { useSearch } from "../context/SearchContext"; // ✅ Nueva importación del contexto de búsqueda
+import { FaSearch } from "react-icons/fa";
 import AuthButton from "../components/AuthButton";
 import "../styles/navbar.css";
 
 const Navbar = () => {
   const { carrito, mostrarCarrito, toggleCarrito } = useCartContext();
+  const { searchQuery, setSearchQuery } = useSearch(); // ✅ Obtención del estado de búsqueda desde el contexto
 
   return (
     <nav className="navbar">
@@ -32,6 +35,18 @@ const Navbar = () => {
       >
         Contacto
       </NavLink>
+
+      {/* ✅ Contenedor del campo de búsqueda con icono */}
+      <div className="search-container">
+        <FaSearch className="search-icon" /> {/* Ícono de lupa */}
+        <input
+          type="text"
+          className="search-bar"
+          placeholder="Buscar productos..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+      </div>
 
       <AuthButton />
 

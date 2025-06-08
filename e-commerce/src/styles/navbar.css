@@ -17,6 +17,28 @@
   transition: color 0.3s ease-in-out;
 }
 
+.search-container {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+}
+
+.search-bar {
+  border: none;
+  outline: none;
+  width: 200px; /* ✅ Ajustamos el ancho */
+  padding: 5px;
+  font-size: 16px;
+}
+
+.search-icon {
+  color: #555;
+  margin-right: 8px;
+}
+
 .navbar a:hover {
   color: #f1c40f;
 }

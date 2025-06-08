@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
-import { Form, Button, Container, Row, Col, InputGroup } from "react-bootstrap";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { Form, Button, Container, Row, Col, InputGroup } from "react-bootstrap";
 
 const Login = () => {
   const [user, setUser] = useState("");

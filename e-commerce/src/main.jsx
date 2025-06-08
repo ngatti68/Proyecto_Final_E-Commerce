@@ -6,14 +6,16 @@ import { AuthProvider } from "./context/AuthContext";
 import { ProductProvider } from "./context/ProductContext";
 import { CartProvider } from "./context/CartContext";
 import { AdminProvider } from "./context/AdminContext";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { SearchProvider } from "./context/SearchContext";
 import App from "./App";
-import "react-toastify/dist/ReactToastify.css";
 
+import "bootstrap/dist/css/bootstrap.min.css";
+import "react-toastify/dist/ReactToastify.css";
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   // <StrictMode>
+  <SearchProvider> {/* ✅ Envoltura con SearchProvider */}
     <BrowserRouter>
       <AuthProvider>
         <ProductProvider>
@@ -26,5 +28,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         </ProductProvider>
       </AuthProvider>
     </BrowserRouter>
+  </SearchProvider>
   // </StrictMode>
 );
