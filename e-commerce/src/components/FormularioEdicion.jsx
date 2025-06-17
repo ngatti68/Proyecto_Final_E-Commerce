@@ -1,59 +1,39 @@
-import { useState, useEffect } from "react";
-import { useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { AdminContext } from "../context/AdminContext";
+import { Form, Button, Spinner } from "react-bootstrap";
+import { handleChangeGenerico, handleBlurGenerico } from "../utils/formUtils";
 import { validarFormulario } from "../utils/validaciones";
 
 const FormularioEdicion = ({ id, onEditar, onCancelar }) => {
   const { getProductById } = useContext(AdminContext);
   const [producto, setProducto] = useState(null);
+  const [cargando, setCargando] = useState(true);
   const [errores, setErrores] = useState({});
 
-  // Obtener producto por ID al cargar el formulario
+  // ✅ Cargar producto existente
   useEffect(() => {
     const fetchProduct = async () => {
       const data = await getProductById(id);
       if (data) {
         setProducto(data);
       } else {
-        console.error("Producto no encontrado, inicializando valores vacíos.");
-        setProducto({ nombre: "", precio: "", stock: "", imagen: "" });
+        console.error("Producto no encontrado.");
+        setProducto({
+          nombre: "",
+          precio: "",
+          stock: "",
+          imagen: "",
+          descripcion: "",
+        });
       }
+      setCargando(false);
     };
-
     fetchProduct();
   }, [id]);
 
-  // Manejar cambios en los campos del formulario
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    if (name === "precio") {
-      // Permitir valores vacíos o cualquier número sin forzar formato
-      if (value === "" || /^\d*\.?\d*$/.test(value)) {
-        setProducto({ ...producto, [name]: value });
-      }
-    } else {
-      setProducto({ ...producto, [name]: value });
-    }
-  };
-
-  // ✅ Aplicar formato solo cuando el usuario sale del campo
-  const handleBlur = (e) => {
-    const { name, value } = e.target;
-
-    if (name === "precio" && value !== "") {
-      setProducto({ ...producto, [name]: parseFloat(value).toFixed(2) });
-    }
-  };
-
-  // Manejar envío del formulario
+  // ✅ Manejar envío del formulario
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (!producto || !producto.nombre) {
-      console.error("Error: producto es undefined o vacío");
-      return;
-    }
 
     const nuevosErrores = validarFormulario(producto);
     if (Object.keys(nuevosErrores).length > 0) {
@@ -62,73 +42,100 @@ const FormularioEdicion = ({ id, onEditar, onCancelar }) => {
     }
 
     onEditar(id, producto);
-    setProducto(null); // ✅ Limpiar el estado
+
+    // ✅ Mantener valores vacíos en lugar de null para evitar errores de renderización
+    setProducto({
+      nombre: "",
+      precio: "",
+      stock: "",
+      imagen: "",
+      descripcion: "",
+    });
     setErrores({});
-    onCancelar(); // ✅ Cerrar el formulario de edición
+    onCancelar();
   };
 
-  // Botón para cancelar edición
-  const handleCancel = () => {
-    setProducto(null); // ✅ Limpiar formulario
-    setErrores({});
-    onCancelar(); // ✅ Llama la función que cancela la selección en Admin.jsx
-  };
-
-  if (!producto) return <p>Cargando producto...</p>;
+  // ✅ Mostrar Spinner si está cargando
+  if (cargando) return <Spinner animation="border" />;
 
   return (
-    <form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit}>
       <h2>Editar Producto</h2>
-      <div>
-        <label>Nombre:</label>
-        <input
+
+      <Form.Group>
+        <Form.Label>Nombre:</Form.Label>
+        <Form.Control
           type="text"
           name="nombre"
-          value={producto.nombre}
-          onChange={handleChange}
+          value={producto?.nombre || ""}
+          onChange={handleChangeGenerico(setProducto)}
           required
         />
         {errores.nombre && <p style={{ color: "red" }}>{errores.nombre}</p>}
-      </div>
-      <div>
-        <label>Precio:</label>
-        <input
-          type="text" /* 👈 Cambia a text para evitar problemas con number */
+      </Form.Group>
+
+      <Form.Group>
+        <Form.Label>Precio:</Form.Label>
+        <Form.Control
+          type="text"
           name="precio"
-          value={producto.precio}
-          onChange={handleChange}
-          onBlur={handleBlur} /* ✅ Aplica formato solo al salir del campo */
+          value={producto?.precio || ""}
+          onChange={handleChangeGenerico(setProducto)}
+          onBlur={handleBlurGenerico(setProducto)}
           required
         />
         {errores.precio && <p style={{ color: "red" }}>{errores.precio}</p>}
-      </div>
-      <div>
-        <label>Stock:</label>
-        <input
+      </Form.Group>
+
+      {/* ✅ Campo de stock corregido */}
+      <Form.Group>
+        <Form.Label>Stock:</Form.Label>
+        <Form.Control
           type="number"
           name="stock"
-          value={producto.stock}
-          onChange={handleChange}
+          value={producto?.stock || 0}
+          onChange={handleChangeGenerico(setProducto)}
           required
           min="0"
         />
-      </div>
-      <div>
-        <label>Imagen:</label>
-        <input
+        {errores.stock && <p style={{ color: "red" }}>{errores.stock}</p>}
+      </Form.Group>
+
+      {/* ✅ Campo de imagen corregido */}
+      <Form.Group>
+        <Form.Label>Imagen:</Form.Label>
+        <Form.Control
           type="text"
           name="imagen"
-          value={producto.imagen}
-          onChange={handleChange}
+          value={producto?.imagen || ""}
+          onChange={handleChangeGenerico(setProducto)}
           required
         />
-      </div>
-      <button type="submit">Guardar Cambios</button>
-      <button type="button" onClick={handleCancel}>
+        {errores.imagen && <p style={{ color: "red" }}>{errores.imagen}</p>}
+      </Form.Group>
+
+      {/* ✅ Campo adicional de descripción */}
+      <Form.Group>
+        <Form.Label>Descripción:</Form.Label>
+        <Form.Control
+          as="textarea"
+          name="descripcion"
+          value={producto?.descripcion || ""}
+          onChange={handleChangeGenerico(setProducto)}
+          required
+        />
+        {errores.descripcion && (
+          <p style={{ color: "red" }}>{errores.descripcion}</p>
+        )}
+      </Form.Group>
+
+      <Button variant="success" type="submit">
+        Guardar Cambios
+      </Button>
+      <Button variant="secondary" type="button" onClick={onCancelar}>
         Cancelar
-      </button>{" "}
-      {/* ✅ Botón cancelar */}
-    </form>
+      </Button>
+    </Form>
   );
 };
 

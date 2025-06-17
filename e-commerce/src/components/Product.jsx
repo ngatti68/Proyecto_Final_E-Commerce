@@ -19,9 +19,8 @@ const Product = () => {
       <p>Precio: ${producto.precio}</p>
       <p>Stock disponible: {producto.stock}</p>
       <p>Descripción del Producto :</p>
-      <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas, nobis. Voluptate nulla aspernatur quas earum doloremque.
-        Laborum quam debitis voluptatem facere a eos dicta ratione quis praesentium cumque. Ea, dolor!
+      <p>{producto.descripcion}
+        
       </p>
       <Link to="/productos">
         <button>Volver a la galería</button>

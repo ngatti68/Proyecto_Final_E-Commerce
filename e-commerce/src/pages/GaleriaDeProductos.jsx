@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CircleLoader } from "react-spinners";
 import { toast } from "react-toastify";
@@ -15,6 +15,7 @@ import {
   Alert,
   Pagination,
 } from "react-bootstrap";
+
 import "../styles/galeriaDeProductos.css";
 
 const GaleriaDeProductos = () => {
@@ -24,22 +25,8 @@ const GaleriaDeProductos = () => {
   const { searchQuery } = useSearch();
   const navigate = useNavigate();
 
-  // Estado de paginación dinámico
   const [paginaActual, setPaginaActual] = useState(1);
-  const [productosPorPagina, setProductosPorPagina] = useState(3);
-
-  // Detectar el número de columnas por fila dinámicamente
-  useEffect(() => {
-    const actualizarProductosPorPagina = () => {
-      const width = window.innerWidth;
-      setProductosPorPagina(width < 576 ? 1 : width < 992 ? 2 : 3);
-    };
-
-    actualizarProductosPorPagina();
-    window.addEventListener("resize", actualizarProductosPorPagina);
-    return () =>
-      window.removeEventListener("resize", actualizarProductosPorPagina);
-  }, []);
+  const productosPorPagina = 4;
 
   const handleAgregarAlCarrito = (producto) => {
     const existe = carrito.find((item) => item.id === producto.id);
@@ -56,10 +43,10 @@ const GaleriaDeProductos = () => {
     navigate(`/productos/${producto.id}`);
   };
 
-  // Filtrar y paginar productos
   const productosFiltrados = productos.filter((producto) =>
     producto.nombre.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
   const totalPaginas = Math.ceil(
     productosFiltrados.length / productosPorPagina
   );
@@ -68,18 +55,6 @@ const GaleriaDeProductos = () => {
     inicio,
     inicio + productosPorPagina
   );
-
-  // ✅ Filtra los productos según el estado de búsqueda
-  const filteredProducts = productos.filter((producto) =>
-    producto.nombre.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  console.log("Productos filtrados:", productos.filter((producto) =>
-  producto.nombre.toLowerCase().includes(searchQuery.toLowerCase())
-  ));
-
-  console.log("Productos disponibles:", productos);
-  console.log("Productos filtrados:", filteredProducts);
 
   return (
     <Container className="mt-4">
@@ -94,21 +69,22 @@ const GaleriaDeProductos = () => {
         <Alert variant="danger" className="text-center">
           {error}
         </Alert>
+      ) : productosFiltrados.length === 0 ? (
+        <Alert variant="warning" className="mt-4 text-center">
+          No se encontraron productos con el término "
+          <strong>{searchQuery}</strong>".
+        </Alert>
       ) : (
         <>
           <Row className="justify-content-center">
-            {" "}
-            {/* Centra las tarjetas en la fila */}
             {productosMostrados.map((producto) => (
-              <Col key={producto.id} xs="auto">
-                {" "}
-                {/* xs="auto" evita que las tarjetas se achiquen */}
-                <Card className="shadow-sm mb-4 card-producto">
+              <Col key={producto.id} xs={12} sm={6} md={4} lg={3}>
+                <Card className="card-producto shadow-sm mb-4">
                   <Card.Img
                     variant="top"
                     src={producto.imagen}
                     alt={producto.nombre}
-                    className="card-img-top custom-img"
+                    className="custom-img"
                   />
                   <Card.Body className="text-center">
                     <Card.Title>{producto.nombre}</Card.Title>
@@ -116,13 +92,13 @@ const GaleriaDeProductos = () => {
                     <Card.Text>Stock: {producto.stock}</Card.Text>
                     <div className="d-grid gap-2">
                       <Button
-                        variant="primary"
+                        className="btn-agregar"
                         onClick={() => handleAgregarAlCarrito(producto)}
                       >
                         Agregar al carrito
                       </Button>
                       <Button
-                        variant="outline-secondary"
+                        className="btn-ver-mas"
                         onClick={() => handleVerMas(producto)}
                       >
                         Ver más...
@@ -134,7 +110,6 @@ const GaleriaDeProductos = () => {
             ))}
           </Row>
 
-          {/* Paginación con React-Bootstrap */}
           <div className="d-flex justify-content-center my-4">
             <Pagination>
               <Pagination.Prev

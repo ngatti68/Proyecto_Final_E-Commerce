@@ -1,16 +1,63 @@
-.mt-4 {
-  margin-bottom: 100px;
+h2 {
+  padding-bottom: 40px;
 }
 
+/* Tarjeta de producto con proporción estable */
 .card-producto {
-  width: 300px; /* Establece un ancho fijo */
-  min-height: 350px; /* Mantiene una altura uniforme */
+  width: 100%;
+  aspect-ratio: 3 / 4; /* Relación de aspecto estable */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */  
 }
 
+/* Imagen con ajuste sin distorsión */
 .custom-img {
-  height: 350px; /* Ajusta la altura sin deformar la imagen */
-  object-fit: cover; /* Asegura que la imagen mantenga sus proporciones */
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3; /* Mantiene proporción */
+  object-fit: cover; /* Ajusta sin distorsionar */
+}
+
+.btn-agregar {
+  background-color: #28a745 !important; /* Verde */
+  border-color: #28a745 !important;
+  color: white !important;
+}
+
+.btn-agregar:hover {
+  background-color: #2ecc71  !important;
+  border-color: #1e7e34 !important;
+}
+
+.btn-ver-mas {
+  background-color: #3498db !important; /* Azul */
+  border-color: #007bff !important;
+  color: white !important;
+}
+
+.btn-ver-mas:hover {
+  background-color: #0056b3 !important;
+  border-color: #004085 !important;
+}
+
+.d-flex {
+  margin-top: 200px;
+}
+
+/* Ajustes de responsividad */
+@media (max-width: 576px) {
+  .card-producto {
+    aspect-ratio: 3 / 5; /* Ajuste para móviles */
+  }
+  .custom-img {
+    aspect-ratio: 16 / 9; /* Proporción más alargada */
+  }
+}
+
+@media (max-width: 768px) {
+  .card-producto {
+    aspect-ratio: 3 / 4; /* Relación adaptable */
+  }
 }
