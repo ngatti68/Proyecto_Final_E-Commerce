@@ -1,55 +1,60 @@
-# Entrega de Proyecto Final : E-Commerce "Talento Tech"
+# 🛒 Proyecto Final: E-Commerce – *Talento Tech*
 
-Objetivo : 
+Aplicación desarrollada como entrega final del curso *ReactJS* de **Talento Tech**, con enfoque en creación, consumo de APIs, autenticación y despliegue.
 
-1. Crear una aplicación ReactJS desde cero utilizando Vite.
-2. Implementar la gestión de estado utilizando useState y Context API.
-3. Desarrollar rutas dinámicas y protegidas para una navegación fluida y
-segura.
-4. Construir formularios con validación y manejar la autenticación de
-usuarios.
-5. Desarrollar un CRUD básico para gestionar productos dentro de
-un proyecto de e-commerce.
-6. Estilizar una aplicación utilizando librerías como Bootstrap y
-styled-components.
-7. Desplegar la aplicación final en una plataforma de hosting.
+---
 
+## 🎯 Objetivo
 
+Diseñar e implementar una tienda online funcional utilizando React con los siguientes lineamientos:
 
-## Autor
+- Crear la app desde cero utilizando **Vite**
+- Implementar **Context API** y `useState` para la gestión de estado global
+- Desarrollar **rutas dinámicas y protegidas** para la navegación
+- Construir formularios con validación y lógica de autenticación
+- Desarrollar un **CRUD completo** para la gestión de productos
+- Estilizar con **React-Bootstrap** y `styled-components`
+- Desplegar la aplicación final utilizando **Netlify**
 
-- [@ngatti68](https://github.com/ngatti68)
+---
 
+## 🔐 Autenticación de Usuarios
 
+Se simula un login básico con distintos roles para validar flujos de navegación:
 
+| Usuario | Contraseña | Rol   | Acceso                      |
+|---------|------------|-------|-----------------------------|
+| admin   | 1234       | Admin | Panel de administración     |
+| user    | 1234       | User  | Catálogo y carrito de compras |
 
-## Requerimientos de esta Pre-Entrega :
+---
 
-Requerimiento #1: Crear una funcionalidad básica para el manejo de un carrito de compras. 
+## 📦 Tech Stack
 
-Requerimiento #2: Conectar la aplicación a una API que provea información sobre los productos. 
+- **Frontend:** React JS + Vite  
+- **Estado Global:** Context API  
+- **Estilos:** React-Bootstrap, styled-components, CSS  
+- **Routing:** React Router DOM  
+- **Notificaciones:** React Toastify  
+- **Despliegue:** Netlify
 
-Requerimiento #3: Integración de rutas. 
+---
 
-Requerimiento #4: Implementar rutas dinámicas y protegidas.
+## ⚙️ Instalación y ejecución del proyecto
 
+### 🧾 Requisitos
 
+- Node.js >= 18
+- npm (o yarn)
 
+### 💻 Pasos
 
-## Autenticación de Usuarios:
+```bash
+# Clona el repositorio
+git clone https://github.com/ngatti68/Proyecto_Final_E-Commerce.git
 
-Protección de rutas que solo los usuarios autenticados puedan acceder a través del login
-(carrito y administración) :
+# Entra al directorio del proyecto
+cd Proyecto_Final_E-Commerce/e-commerce
 
-`Usuario : admin`
-
-`Contraseña : 1234`
-
-`Usuario : user`
-
-`Contraseña : 1234`
-
-
-## Tech Stack
-
-**Client:** React JS, Vite, Node.js, JSX
+# Instala las dependencias
+npm install

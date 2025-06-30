@@ -14,13 +14,11 @@ const Login = () => {
   const navigate = useNavigate();
   const { handleLogin } = useAuthContext();
 
-  // ✅ Validar usuario (mínimo 3 caracteres)
   const validarUser = (valor) => {
     setUser(valor);
     setUserValid(valor.trim().length >= 3);
   };
 
-  // ✅ Validar contraseña (mínimo 6 caracteres)
   const validarPassword = (valor) => {
     setPassword(valor);
     setPasswordValid(valor.trim().length >= 4);
@@ -30,7 +28,7 @@ const Login = () => {
     e.preventDefault();
 
     if (!userValid || !passwordValid) {
-      setValidated(true); // ✅ Activa validación si los datos no son correctos
+      setValidated(true); 
       return;
     }
 
@@ -43,7 +41,7 @@ const Login = () => {
         <Col xs={12} md={6}>
           <h2 className="text-center">Iniciar Sesión</h2>
           <Form noValidate validated={validated} onSubmit={handleSubmit}>
-            {/* Usuario */}
+            
             <Form.Group className="mb-3">
               <Form.Label>Usuario</Form.Label>
               <Form.Control
@@ -56,8 +54,7 @@ const Login = () => {
               <Form.Control.Feedback type="valid">¡Usuario válido!</Form.Control.Feedback>
               <Form.Control.Feedback type="invalid">El usuario debe tener al menos 3 caracteres.</Form.Control.Feedback>
             </Form.Group>
-
-            {/* Contraseña */}
+            
             <Form.Group className="mb-3">
               <Form.Label>Contraseña</Form.Label>
               <InputGroup>
@@ -75,8 +72,7 @@ const Login = () => {
                 <Form.Control.Feedback type="invalid">La contraseña debe tener al menos 6 caracteres.</Form.Control.Feedback>
               </InputGroup>
             </Form.Group>
-
-            {/* Botón de enviar */}
+            
             <Button variant="primary" className="w-100" type="submit" disabled={!userValid || !passwordValid}>
               Ingresar
             </Button>

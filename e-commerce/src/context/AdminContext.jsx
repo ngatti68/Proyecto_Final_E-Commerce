@@ -2,6 +2,7 @@ import { createContext, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
 export const AdminContext = createContext();
+const API_URL = process.env.REACT_APP_API_URL;
 
 export const AdminProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
@@ -10,7 +11,7 @@ export const AdminProvider = ({ children }) => {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          "https://6817bb0c5a4b07b9d1cd2005.mockapi.io/productos-ecommerce/productos"
+          API_URL
         );
         if (response.ok) {
           const data = await response.json();
@@ -27,7 +28,7 @@ export const AdminProvider = ({ children }) => {
   const addProduct = async (newProduct) => {
     try {
       const response = await fetch(
-        "https://6817bb0c5a4b07b9d1cd2005.mockapi.io/productos-ecommerce/productos",
+        API_URL,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -48,7 +49,7 @@ export const AdminProvider = ({ children }) => {
   const editProduct = async (id, updatedProduct) => {
     try {
       const response = await fetch(
-        `https://6817bb0c5a4b07b9d1cd2005.mockapi.io/productos-ecommerce/productos/${id}`,
+        `${API_URL}/${id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -68,7 +69,7 @@ export const AdminProvider = ({ children }) => {
   const deleteProduct = async (id) => {
     try {
       const response = await fetch(
-        `https://6817bb0c5a4b07b9d1cd2005.mockapi.io/productos-ecommerce/productos/${id}`,
+        `${API_URL}/${id}`,
         {
           method: "DELETE",
         }
@@ -86,7 +87,7 @@ export const AdminProvider = ({ children }) => {
   const getProductById = async (id) => {
     try {
       const response = await fetch(
-        `https://6817bb0c5a4b07b9d1cd2005.mockapi.io/productos-ecommerce/productos/${id}`
+        `${API_URL}/${id}`
       );
       if (response.ok) {
         return await response.json();

@@ -8,6 +8,8 @@ import ModalConfirmacion from "../components/ModalConfirmacion";
 
 import "../styles/admin.css";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const Admin = () => {
   const [productos, setProductos] = useState([]);
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
@@ -23,7 +25,7 @@ const Admin = () => {
     const fetchProductos = async () => {
       try {
         const response = await fetch(
-          "https://6817bb0c5a4b07b9d1cd2005.mockapi.io/productos-ecommerce/productos"
+          API_URL
         );
         const data = await response.json();
         setProductos(data);
@@ -40,7 +42,7 @@ const Admin = () => {
   const agregarProducto = async (producto) => {
     try {
       const response = await fetch(
-        "https://6817bb0c5a4b07b9d1cd2005.mockapi.io/productos-ecommerce/productos",
+        API_URL,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -58,7 +60,7 @@ const Admin = () => {
   const editarProducto = async (id, productoActualizado) => {
     try {
       await fetch(
-        `https://6817bb0c5a4b07b9d1cd2005.mockapi.io/productos-ecommerce/productos/${id}`,
+        `${API_URL}/${id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -86,7 +88,7 @@ const Admin = () => {
   const eliminarProducto = async () => {
     try {
       await fetch(
-        `https://6817bb0c5a4b07b9d1cd2005.mockapi.io/productos-ecommerce/productos/${productoAEliminar}`,
+        `${API_URL}/${productoAEliminar}`,
         {
           method: "DELETE",
         }

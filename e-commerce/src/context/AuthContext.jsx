@@ -3,6 +3,9 @@ import { toast } from "react-toastify";
 
 const AuthContext = createContext();
 
+const ADMIN_TOKEN = process.env.REACT_APP_ADMIN_TOKEN;
+const USER_TOKEN = process.env.REACT_APP_USER_TOKEN;
+
 export const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState(() => {
     const authGuardado = JSON.parse(localStorage.getItem("auth")) || { isAuthenticated: false, role: null, token: null };
@@ -11,13 +14,13 @@ export const AuthProvider = ({ children }) => {
 
   const handleLogin = (user, password, navigate) => {
     if (user === "admin" && password === "1234") {
-      const authData = { isAuthenticated: true, role: "admin", token: "fakeAdminToken123" };
+      const authData = { isAuthenticated: true, role: "admin", token: ADMIN_TOKEN };
       setAuth(authData);
       localStorage.setItem("auth", JSON.stringify(authData));
       toast.success("¡Bienvenido, admin!", { position: "top-right" });
       navigate("/admin");
     } else if (user === "user" && password === "1234") {
-      const authData = { isAuthenticated: true, role: "user", token: "fakeUserToken456" };
+      const authData = { isAuthenticated: true, role: "user", token: USER_TOKEN };
       setAuth(authData);
       localStorage.setItem("auth", JSON.stringify(authData));
       toast.success("¡Bienvenido, usuario!", { position: "top-right" });

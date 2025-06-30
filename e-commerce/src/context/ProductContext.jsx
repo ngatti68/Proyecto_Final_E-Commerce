@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 
 const ProductContext = createContext();
+const API_URL = process.env.REACT_APP_API_URL;
 
 export const ProductProvider = ({ children }) => {
   const [productos, setProductos] = useState([]);
@@ -13,7 +14,7 @@ export const ProductProvider = ({ children }) => {
       try {
         setLoading(true);
         const respuesta = await fetch(
-          "https://6817bb0c5a4b07b9d1cd2005.mockapi.io/productos-ecommerce/productos"
+          API_URL
         );
 
         if (!respuesta.ok) throw new Error("Error al cargar los productos");
