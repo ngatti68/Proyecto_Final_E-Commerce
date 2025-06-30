@@ -58,7 +58,7 @@ const GaleriaDeProductos = () => {
 
   return (
     <Container className="mt-4">
-      <h2 className="text-center">Galería de Productos</h2>
+      <h2 className="text-center">Nuestros Productos</h2>
 
       {loading ? (
         <div className="d-flex justify-content-center align-items-center flex-column">
@@ -90,7 +90,7 @@ const GaleriaDeProductos = () => {
                     <Card.Title>{producto.nombre}</Card.Title>
                     <Card.Text>Precio: ${producto.precio}</Card.Text>
                     <Card.Text>Stock: {producto.stock}</Card.Text>
-                    <div className="d-grid gap-2">
+                    <div className="d-grid gap-0">
                       <Button
                         className="btn-agregar"
                         onClick={() => handleAgregarAlCarrito(producto)}

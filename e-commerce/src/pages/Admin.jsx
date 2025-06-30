@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button, Modal, Table, Spinner, Alert } from "react-bootstrap";
 import { useSearch } from "../context/SearchContext";
+import { toast } from "react-toastify";
 import FormularioProducto from "../components/FormularioProducto";
 import FormularioEdicion from "../components/FormularioEdicion";
 import ModalConfirmacion from "../components/ModalConfirmacion";
@@ -16,7 +17,7 @@ const Admin = () => {
     useState(false);
   const [productoAEliminar, setProductoAEliminar] = useState(null);
   const [cargando, setCargando] = useState(true);
-  const { searchQuery } = useSearch(); // Importar contexto de búsqueda
+  const { searchQuery } = useSearch();
 
   useEffect(() => {
     const fetchProductos = async () => {
@@ -27,7 +28,7 @@ const Admin = () => {
         const data = await response.json();
         setProductos(data);
       } catch (error) {
-        console.error("Error al cargar productos:", error);
+        toast.error("Error al cargar productos");
       } finally {
         setCargando(false);
       }
@@ -50,7 +51,7 @@ const Admin = () => {
       setProductos([...productos, nuevoProducto]);
       setMostrarFormulario(false);
     } catch (error) {
-      console.error("Error al agregar producto:", error);
+      toast.error("Error al agregar producto");
     }
   };
 
@@ -73,7 +74,7 @@ const Admin = () => {
       setMostrarEdicion(false);
       setProductoSeleccionado(null);
     } catch (error) {
-      console.error("Error al editar producto:", error);
+      toast.error("Error al editar producto");
     }
   };
 
@@ -93,11 +94,10 @@ const Admin = () => {
       setProductos(productos.filter((p) => p.id !== productoAEliminar));
       setMostrarModalConfirmacion(false);
     } catch (error) {
-      console.error("Error al eliminar producto:", error);
+      toast.error("Error al eliminar producto");
     }
   };
 
-  // Filtrar productos según la búsqueda
   const productosFiltrados = productos.filter((producto) =>
     producto.nombre.toLowerCase().includes(searchQuery.toLowerCase())
   );

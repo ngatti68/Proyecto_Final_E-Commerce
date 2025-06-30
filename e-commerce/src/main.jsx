@@ -1,5 +1,5 @@
 import ReactDOM from "react-dom/client";
-// import { StrictMode } from "react";
+import { StrictMode } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { AuthProvider } from "./context/AuthContext";
@@ -8,12 +8,13 @@ import { CartProvider } from "./context/CartContext";
 import { AdminProvider } from "./context/AdminContext";
 import { SearchProvider } from "./context/SearchContext";
 import App from "./App";
+
 import "react-toastify/dist/ReactToastify.css";
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  // <StrictMode>
-  <SearchProvider> {/* ✅ Envoltura con SearchProvider */}
+<StrictMode>
+  <SearchProvider> 
     <BrowserRouter>
       <AuthProvider>
         <ProductProvider>
@@ -27,5 +28,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       </AuthProvider>
     </BrowserRouter>
   </SearchProvider>
-  // </StrictMode>
+</StrictMode>
 );

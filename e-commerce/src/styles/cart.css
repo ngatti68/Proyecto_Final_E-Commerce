@@ -7,18 +7,39 @@
   background: white;
   border: 1px solid #ddd;
   padding: 15px;
-  width: 400px;
+  width: 450px;
+  max-height: 80vh; /* 80% del viewport */
+  overflow-y: auto;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 10;
 }
 
 .carrito-producto {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
-  gap: 10px;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
 
+.carrito-miniatura {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.carrito-detalles {
+  flex: 1;
+}
+
+.carrito-controles {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+  flex-wrap: wrap;
 }
 
 .carrito-input {
@@ -32,7 +53,7 @@
 }
 
 .boton-estilizado {
-  background-color: #3498db;
+  background-color: var(--primary-color);
   color: white;
   padding: 10px 15px;
   border: none;
@@ -43,11 +64,11 @@
 }
 
 .boton-estilizado:hover {
-  background-color: #0056b3;
+  background-color: #e74c3c;
 }
 
 .boton-eliminar {
-  background-color: #e74c3c;
+  background-color: var(--third-color);
   color: white;
   padding: 10px 15px;
   border: none;
@@ -61,17 +82,16 @@
   background-color: #a71d2a;
 }
 
-.boton-vaciar {
-  margin-top: 10px;
-  width: 100%;
-  /* Que ocupe toda la línea */
-}
-
 .boton-eliminar:hover {
   background-color: #a71d2a;
 }
 
 .boton-vaciar {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.boton-finalizar {
   margin-top: 10px;
   width: 100%;
 }

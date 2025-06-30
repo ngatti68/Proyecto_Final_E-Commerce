@@ -13,14 +13,21 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
+      <div className="logo-container">
+        <NavLink to="/" className="logo-link">
+          <img
+            src="/DulceBombon.png"
+            alt="Logo Dulce Bombón"
+            className="navbar-logo"
+          />
+        </NavLink>
+      </div>
       <div className="menu-container">
         <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
           ☰
         </div>
       </div>
-
       <div className={`navbar-content ${menuOpen ? "active" : ""}`}>
-        {/* Sección de enlaces de navegación */}
         <div className="nav-links">
           <NavLink
             to="/"
@@ -48,7 +55,6 @@ const Navbar = () => {
           </NavLink>
         </div>
 
-        {/* Sección de acciones (búsqueda, sesión, carrito) */}
         <div className="actions-container">
           <div className="search-container">
             <FaSearch className="search-icon" />
@@ -63,7 +69,11 @@ const Navbar = () => {
 
           <AuthButton />
 
-          <button onClick={toggleCarrito} className="boton-carrito">
+          <button
+            aria-label="Abrir carrito"
+            onClick={toggleCarrito}
+            className="boton-carrito"
+          >
             <i className="fas fa-shopping-cart"></i> ({carrito.length})
             <i
               className={

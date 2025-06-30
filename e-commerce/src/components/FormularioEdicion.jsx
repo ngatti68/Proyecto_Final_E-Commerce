@@ -10,7 +10,6 @@ const FormularioEdicion = ({ id, onEditar, onCancelar }) => {
   const [cargando, setCargando] = useState(true);
   const [errores, setErrores] = useState({});
 
-  // ✅ Cargar producto existente
   useEffect(() => {
     const fetchProduct = async () => {
       const data = await getProductById(id);
@@ -31,7 +30,6 @@ const FormularioEdicion = ({ id, onEditar, onCancelar }) => {
     fetchProduct();
   }, [id]);
 
-  // ✅ Manejar envío del formulario
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -43,7 +41,6 @@ const FormularioEdicion = ({ id, onEditar, onCancelar }) => {
 
     onEditar(id, producto);
 
-    // ✅ Mantener valores vacíos en lugar de null para evitar errores de renderización
     setProducto({
       nombre: "",
       precio: "",
@@ -55,7 +52,6 @@ const FormularioEdicion = ({ id, onEditar, onCancelar }) => {
     onCancelar();
   };
 
-  // ✅ Mostrar Spinner si está cargando
   if (cargando) return <Spinner animation="border" />;
 
   return (
@@ -87,7 +83,6 @@ const FormularioEdicion = ({ id, onEditar, onCancelar }) => {
         {errores.precio && <p style={{ color: "red" }}>{errores.precio}</p>}
       </Form.Group>
 
-      {/* ✅ Campo de stock corregido */}
       <Form.Group>
         <Form.Label>Stock:</Form.Label>
         <Form.Control
@@ -101,7 +96,6 @@ const FormularioEdicion = ({ id, onEditar, onCancelar }) => {
         {errores.stock && <p style={{ color: "red" }}>{errores.stock}</p>}
       </Form.Group>
 
-      {/* ✅ Campo de imagen corregido */}
       <Form.Group>
         <Form.Label>Imagen:</Form.Label>
         <Form.Control
@@ -114,7 +108,6 @@ const FormularioEdicion = ({ id, onEditar, onCancelar }) => {
         {errores.imagen && <p style={{ color: "red" }}>{errores.imagen}</p>}
       </Form.Group>
 
-      {/* ✅ Campo adicional de descripción */}
       <Form.Group>
         <Form.Label>Descripción:</Form.Label>
         <Form.Control

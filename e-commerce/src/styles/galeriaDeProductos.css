@@ -2,62 +2,81 @@ h2 {
   padding-bottom: 40px;
 }
 
-/* Tarjeta de producto con proporción estable */
 .card-producto {
   width: 100%;
-  aspect-ratio: 3 / 4; /* Relación de aspecto estable */
+  aspect-ratio: 3 / 4;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */  
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 8px;
+  overflow: visible; 
+  position: relative;
+  z-index: 1;
+
+
 }
 
-/* Imagen con ajuste sin distorsión */
+.card-producto:hover {
+  transform: scale(1.02);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
 .custom-img {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 4 / 3; /* Mantiene proporción */
-  object-fit: cover; /* Ajusta sin distorsionar */
+  width: 100%; 
+  height: auto;  
+  object-fit: cover;
 }
 
 .btn-agregar {
-  background-color: #28a745 !important; /* Verde */
-  border-color: #28a745 !important;
+  background-color: var(--primary-color) !important;
+  border-color: var(--third-color) !important;
   color: white !important;
 }
 
 .btn-agregar:hover {
-  background-color: #2ecc71  !important;
-  border-color: #1e7e34 !important;
+  background-color: var(--third-color) !important;
+  border-color: var(--third-color) !important;
 }
 
 .btn-ver-mas {
-  background-color: #3498db !important; /* Azul */
-  border-color: #007bff !important;
+  background-color: var(--secondary-color) !important;
+  border-color: var(--third-color) !important;
   color: white !important;
 }
 
 .btn-ver-mas:hover {
-  background-color: #0056b3 !important;
-  border-color: #004085 !important;
+  background-color: var(--third-color) !important;
+  border-color: var(--third-color) !important;
 }
 
 .d-flex {
-  margin-top: 200px;
+  margin-top: 75px;
 }
 
-/* Ajustes de responsividad */
+.active>.page-link, .page-link.active {
+  background: var(--primary-color) !important;
+  border: var(--third-color) !important;
+  color: black !important;
+}
+
+.page-link {
+  color: black !important;
+}
+
 @media (max-width: 576px) {
   .card-producto {
-    aspect-ratio: 3 / 5; /* Ajuste para móviles */
+    aspect-ratio: 3 / 5;
   }
+
   .custom-img {
-    aspect-ratio: 16 / 9; /* Proporción más alargada */
+    aspect-ratio: 16 / 9;
   }
 }
 
 @media (max-width: 768px) {
   .card-producto {
-    aspect-ratio: 3 / 4; /* Relación adaptable */
+    aspect-ratio: 3 / 4;
   }
 }

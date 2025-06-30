@@ -8,10 +8,8 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    /* Asegura que la página siempre ocupe toda la pantalla */
 }
 
 .main-content {
     flex-grow: 1;
-    /* Empuja el footer hacia abajo cuando el contenido es menor */
 }

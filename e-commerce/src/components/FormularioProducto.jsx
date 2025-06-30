@@ -9,7 +9,7 @@ function FormularioProducto({ onAgregar }) {
     precio: "",
     stock: "",
     imagen: "",
-    descripcion: "", // ✅ Se agrega el campo descripción
+    descripcion: "",
   });
 
   const [errores, setErrores] = useState({});
@@ -24,7 +24,13 @@ function FormularioProducto({ onAgregar }) {
     }
 
     onAgregar(producto);
-    setProducto({ nombre: "", precio: "", stock: "", imagen: "", descripcion: "" });
+    setProducto({
+      nombre: "",
+      precio: "",
+      stock: "",
+      imagen: "",
+      descripcion: "",
+    });
     setErrores({});
   };
 
@@ -34,29 +40,54 @@ function FormularioProducto({ onAgregar }) {
 
       <Form.Group>
         <Form.Label>Nombre:</Form.Label>
-        <Form.Control type="text" name="nombre" value={producto.nombre} onChange={handleChangeGenerico(setProducto)} required />
+        <Form.Control
+          type="text"
+          name="nombre"
+          value={producto.nombre}
+          onChange={handleChangeGenerico(setProducto)}
+          required
+        />
         {errores.nombre && <p style={{ color: "red" }}>{errores.nombre}</p>}
       </Form.Group>
 
       <Form.Group>
         <Form.Label>Precio:</Form.Label>
-        <Form.Control type="text" name="precio" value={producto.precio} onChange={handleChangeGenerico(setProducto)} onBlur={handleBlurGenerico(setProducto)} required />
+        <Form.Control
+          type="text"
+          name="precio"
+          value={producto.precio}
+          onChange={handleChangeGenerico(setProducto)}
+          onBlur={handleBlurGenerico(setProducto)}
+          required
+        />
         {errores.precio && <p style={{ color: "red" }}>{errores.precio}</p>}
       </Form.Group>
 
       <Form.Group>
         <Form.Label>Stock:</Form.Label>
-        <Form.Control type="number" name="stock" value={producto.stock} onChange={handleChangeGenerico(setProducto)} required min="0" />
+        <Form.Control
+          type="number"
+          name="stock"
+          value={producto.stock}
+          onChange={handleChangeGenerico(setProducto)}
+          required
+          min="0"
+        />
         {errores.stock && <p style={{ color: "red" }}>{errores.stock}</p>}
       </Form.Group>
 
       <Form.Group>
         <Form.Label>Imagen:</Form.Label>
-        <Form.Control type="text" name="imagen" value={producto.imagen} onChange={handleChangeGenerico(setProducto)} required />
+        <Form.Control
+          type="text"
+          name="imagen"
+          value={producto.imagen}
+          onChange={handleChangeGenerico(setProducto)}
+          required
+        />
         {errores.imagen && <p style={{ color: "red" }}>{errores.imagen}</p>}
       </Form.Group>
 
-      {/* ✅ Nuevo campo de descripción con validación */}
       <Form.Group>
         <Form.Label>Descripción:</Form.Label>
         <Form.Control
@@ -66,10 +97,14 @@ function FormularioProducto({ onAgregar }) {
           onChange={handleChangeGenerico(setProducto)}
           required
         />
-        {errores.descripcion && <p style={{ color: "red" }}>{errores.descripcion}</p>}
+        {errores.descripcion && (
+          <p style={{ color: "red" }}>{errores.descripcion}</p>
+        )}
       </Form.Group>
 
-      <Button variant="primary" type="submit">Agregar Producto</Button>
+      <Button variant="primary" type="submit">
+        Agregar Producto
+      </Button>
     </Form>
   );
 }

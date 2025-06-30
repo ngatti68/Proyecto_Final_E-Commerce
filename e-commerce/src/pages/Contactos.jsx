@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 
+import "../styles/contactos.css"
+
 const Contactos = () => {
   const [formData, setFormData] = useState({
     nombre: "",

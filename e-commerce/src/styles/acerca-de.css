@@ -1,0 +1,29 @@
+.container .info {
+    font-size: 1.2vw;
+    margin: 50px;
+    text-align: center;
+}
+
+.container .info p {
+    margin-bottom: 20px;
+}
+
+.container .info h2 {
+    padding: 20px;
+}
+
+.container .info h1:hover,
+.container .info h2:hover {
+    color: var(--primary-color);
+    transition: .5s;
+}
+
+.video-container video {
+    width: 80%;
+    height: auto;
+    align-self: center;
+    border-radius: 50px;
+    border: var(--primary-color) 5px solid;
+    object-fit: cover;
+    margin: 0px 100px 100px;
+}

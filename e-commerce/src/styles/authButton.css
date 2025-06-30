@@ -4,7 +4,7 @@
     gap: 8px;
     padding: 10px 15px;
     font-size: 16px;
-    background-color: #7f8c8d;
+    background-color: var(--primary-color);
     color: white;
     border: none;
     cursor: pointer;
@@ -12,7 +12,8 @@
 }
 
 .boton-auth:hover {
-    background-color: #f1c40f;
+    background-color: var(--third-color);
+    color: black;
 }
 
 .boton-auth svg {

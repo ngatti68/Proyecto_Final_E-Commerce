@@ -12,8 +12,8 @@ const AuthButton = () => {
 
   const handleAuthAction = () => {
     if (auth.isAuthenticated) {
-      vaciarCarrito();  // ✅ Primero vacía el carrito
-      handleLogout(navigate); // ✅ Luego cierra sesión y redirige al login
+      vaciarCarrito();  
+      handleLogout(navigate); 
     } else {
       navigate("/login");
     }
