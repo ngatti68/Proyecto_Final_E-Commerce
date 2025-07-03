@@ -2,7 +2,8 @@ import { createContext, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
 export const AdminContext = createContext();
-const API_URL = process.env.REACT_APP_API_URL;
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const AdminProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
@@ -10,9 +11,7 @@ export const AdminProvider = ({ children }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(
-          API_URL
-        );
+        const response = await fetch(API_URL);
         if (response.ok) {
           const data = await response.json();
           setProducts(data);
@@ -27,14 +26,11 @@ export const AdminProvider = ({ children }) => {
 
   const addProduct = async (newProduct) => {
     try {
-      const response = await fetch(
-        API_URL,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(newProduct),
-        }
-      );
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newProduct),
+      });
 
       if (response.ok) {
         const product = await response.json();
@@ -42,20 +38,17 @@ export const AdminProvider = ({ children }) => {
         toast.success("Producto agregado con éxito!");
       }
     } catch (error) {
-      toast.error("Error al agregar producto");      
+      toast.error("Error al agregar producto");
     }
   };
 
   const editProduct = async (id, updatedProduct) => {
     try {
-      const response = await fetch(
-        `${API_URL}/${id}`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(updatedProduct),
-        }
-      );
+      const response = await fetch(`${API_URL}/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedProduct),
+      });
 
       if (response.ok) {
         const product = await response.json();
@@ -68,27 +61,22 @@ export const AdminProvider = ({ children }) => {
 
   const deleteProduct = async (id) => {
     try {
-      const response = await fetch(
-        `${API_URL}/${id}`,
-        {
-          method: "DELETE",
-        }
-      );
+      const response = await fetch(`${API_URL}/${id}`, {
+        method: "DELETE",
+      });
 
       if (response.ok) {
         setProducts(products.filter((p) => p.id !== id));
         toast.info("Producto eliminado correctamente");
       }
     } catch (error) {
-      toast.error("Error al eliminar producto");      
+      toast.error("Error al eliminar producto");
     }
   };
 
   const getProductById = async (id) => {
     try {
-      const response = await fetch(
-        `${API_URL}/${id}`
-      );
+      const response = await fetch(`${API_URL}/${id}`);
       if (response.ok) {
         return await response.json();
       }

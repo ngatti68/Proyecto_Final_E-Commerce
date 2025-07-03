@@ -8,7 +8,7 @@ import ModalConfirmacion from "../components/ModalConfirmacion";
 
 import "../styles/admin.css";
 
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = import.meta.env.VITE_API_URL;
 
 const Admin = () => {
   const [productos, setProductos] = useState([]);
@@ -24,9 +24,7 @@ const Admin = () => {
   useEffect(() => {
     const fetchProductos = async () => {
       try {
-        const response = await fetch(
-          API_URL
-        );
+        const response = await fetch(API_URL);
         const data = await response.json();
         setProductos(data);
       } catch (error) {
@@ -41,14 +39,11 @@ const Admin = () => {
 
   const agregarProducto = async (producto) => {
     try {
-      const response = await fetch(
-        API_URL,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(producto),
-        }
-      );
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(producto),
+      });
       const nuevoProducto = await response.json();
       setProductos([...productos, nuevoProducto]);
       setMostrarFormulario(false);
@@ -59,14 +54,11 @@ const Admin = () => {
 
   const editarProducto = async (id, productoActualizado) => {
     try {
-      await fetch(
-        `${API_URL}/${id}`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(productoActualizado),
-        }
-      );
+      await fetch(`${API_URL}/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(productoActualizado),
+      });
 
       setProductos(
         productos.map((p) =>
@@ -87,12 +79,9 @@ const Admin = () => {
 
   const eliminarProducto = async () => {
     try {
-      await fetch(
-        `${API_URL}/${productoAEliminar}`,
-        {
-          method: "DELETE",
-        }
-      );
+      await fetch(`${API_URL}/${productoAEliminar}`, {
+        method: "DELETE",
+      });
       setProductos(productos.filter((p) => p.id !== productoAEliminar));
       setMostrarModalConfirmacion(false);
     } catch (error) {

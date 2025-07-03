@@ -1,7 +1,8 @@
 import { createContext, useContext, useState, useEffect } from "react";
 
 const ProductContext = createContext();
-const API_URL = process.env.REACT_APP_API_URL;
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const ProductProvider = ({ children }) => {
   const [productos, setProductos] = useState([]);
@@ -13,9 +14,7 @@ export const ProductProvider = ({ children }) => {
     const fetchProductos = async () => {
       try {
         setLoading(true);
-        const respuesta = await fetch(
-          API_URL
-        );
+        const respuesta = await fetch(API_URL);
 
         if (!respuesta.ok) throw new Error("Error al cargar los productos");
 
