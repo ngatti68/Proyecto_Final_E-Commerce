@@ -1,11 +1,11 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import { useAuthContext } from "../context/AuthContext"; 
+import { useAuthContext } from "../context/AuthContext";
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  const { auth } = useAuthContext(); 
+  const { auth } = useAuthContext();
   const [carrito, setCarrito] = useState(() => {
     const carritoGuardado = localStorage.getItem("carrito");
     return carritoGuardado ? JSON.parse(carritoGuardado) : [];
@@ -39,7 +39,7 @@ export const CartProvider = ({ children }) => {
 
       localStorage.setItem("carrito", JSON.stringify(nuevoCarrito));
 
-      toast.success(`"${producto.nombre}" agregado al carrito!`); 
+      toast.success(`"${producto.nombre}" agregado al carrito!`);
 
       return nuevoCarrito;
     });
@@ -75,6 +75,7 @@ export const CartProvider = ({ children }) => {
       value={{
         carrito,
         mostrarCarrito,
+        setMostrarCarrito,
         toggleCarrito,
         agregarAlCarrito,
         actualizarCantidad,

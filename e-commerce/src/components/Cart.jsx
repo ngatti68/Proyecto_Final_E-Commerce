@@ -7,8 +7,14 @@ import "sweetalert2/dist/sweetalert2.min.css";
 import "../styles/cart.css";
 
 const Cart = () => {
-  const { carrito, actualizarCantidad, eliminarProducto, vaciarCarrito } =
-    useCartContext();
+  const {
+    carrito,
+    actualizarCantidad,
+    eliminarProducto,
+    vaciarCarrito,
+    mostrarCarrito,
+    setMostrarCarrito,
+  } = useCartContext();
 
   const { auth = { isAuthenticated: false } } = useAuthContext();
 
@@ -49,95 +55,116 @@ const Cart = () => {
     });
 
     vaciarCarrito();
+    setMostrarCarrito(false);
   };
 
   return (
-    <div className="carrito-container">
-      <h2>Carrito de Compras</h2>
+    <>
+      {/* Fondo oscuro opcional */}
+      {mostrarCarrito && (
+        <div
+          className="carrito-backdrop"
+          onClick={() => setMostrarCarrito(false)}
+        />
+      )}
 
-      {carrito.length === 0 ? (
-        <p>Tu carrito está vacío.</p>
-      ) : (
-        <div>
-          {carrito.map((producto) => (
-            <div key={producto.id} className="carrito-producto">
-              <img
-                src={producto.imagen}
-                alt={producto.nombre}
-                className="carrito-miniatura"
-              />
+      <div className={`carrito-panel ${mostrarCarrito ? "activo" : ""}`}>
+        <button
+          className="carrito-cerrar"
+          onClick={() => setMostrarCarrito(false)}
+        >
+          ✕
+        </button>
 
-              <div className="carrito-detalles">
-                <p>
-                  {producto.nombre} (${producto.precio})
-                </p>
+        <h2>Carrito de Compras</h2>
 
-                <div className="carrito-controles">
-                  <button
-                    className="boton-estilizado"
-                    onClick={() =>
-                      manejarActualizarCantidad(
-                        producto,
-                        Math.max(1, producto.cantidad - 1)
-                      )
-                    }
-                  >
-                    -
-                  </button>
+        {carrito.length === 0 ? (
+          <p>Tu carrito está vacío.</p>
+        ) : (
+          <div>
+            {carrito.map((producto) => (
+              <div key={producto.id} className="carrito-producto">
+                <img
+                  src={producto.imagen}
+                  alt={producto.nombre}
+                  className="carrito-miniatura"
+                />
 
-                  <input
-                    type="number"
-                    min="1"
-                    max={producto.stock}
-                    value={producto.cantidad}
-                    onChange={(e) =>
-                      manejarActualizarCantidad(
-                        producto,
-                        Math.min(Number(e.target.value), producto.stock)
-                      )
-                    }
-                    className="carrito-input"
-                  />
+                <div className="carrito-detalles">
+                  <p>
+                    {producto.nombre} (${producto.precio})
+                  </p>
 
-                  <button
-                    className="boton-estilizado"
-                    onClick={() =>
-                      manejarActualizarCantidad(producto, producto.cantidad + 1)
-                    }
-                  >
-                    +
-                  </button>
+                  <div className="carrito-controles">
+                    <button
+                      className="boton-estilizado"
+                      onClick={() =>
+                        manejarActualizarCantidad(
+                          producto,
+                          Math.max(1, producto.cantidad - 1)
+                        )
+                      }
+                    >
+                      -
+                    </button>
 
-                  <button
-                    className="boton-estilizado boton-eliminar"
-                    onClick={() => {
-                      eliminarProducto(producto.id);
-                      toast.error(`Producto ${producto.nombre} eliminado`);
-                    }}
-                  >
-                    Eliminar
-                  </button>
+                    <input
+                      type="number"
+                      min="1"
+                      max={producto.stock}
+                      value={producto.cantidad}
+                      onChange={(e) =>
+                        manejarActualizarCantidad(
+                          producto,
+                          Math.min(Number(e.target.value), producto.stock)
+                        )
+                      }
+                      className="carrito-input"
+                    />
+
+                    <button
+                      className="boton-estilizado"
+                      onClick={() =>
+                        manejarActualizarCantidad(
+                          producto,
+                          producto.cantidad + 1
+                        )
+                      }
+                    >
+                      +
+                    </button>
+
+                    <button
+                      className="boton-estilizado boton-eliminar"
+                      onClick={() => {
+                        eliminarProducto(producto.id);
+                        toast.error(`Producto ${producto.nombre} eliminado`);
+                      }}
+                    >
+                      Eliminar
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
 
-          <h3>Total: ${totalCarrito.toFixed(2)}</h3>
-          <button
-            className="boton-estilizado boton-vaciar"
-            onClick={vaciarCarrito}
-          >
-            Vaciar Carrito
-          </button>
-          <button
-            className="boton-estilizado boton-finalizar"
-            onClick={manejarFinalizarCompra}
-          >
-            Finalizar compra
-          </button>
-        </div>
-      )}
-    </div>
+            <h3>Total: ${totalCarrito.toFixed(2)}</h3>
+            <button
+              className="boton-estilizado boton-vaciar"
+              onClick={vaciarCarrito}
+            >
+              Vaciar Carrito
+            </button>
+            <button
+              className="boton-estilizado boton-finalizar"
+              onClick={manejarFinalizarCompra}
+            >
+              Finalizar compra
+            </button>
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 
